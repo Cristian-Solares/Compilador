@@ -1,0 +1,41 @@
+package codigo;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal  Suma, Resta, Multiplicacion, Division, Parentesis_a, Parentesis_c, ERROR,numero,Id,Numero_dec
+;
+non terminal OP_AGR, MUL_DIV, SUM_RES,Numero
+;
+
+start with OP_AGR;
+
+OP_AGR ::= 
+   Numero MUL_DIV OP_AGR| Numero SUM_RES OP_AGR|Parentesis_a Numero MUL_DIV OP_AGR Parentesis_c SUM_RES OP_AGR|
+   Parentesis_a Numero SUM_RES OP_AGR Parentesis_c SUM_RES OP_AGR|Numero|
+   Parentesis_a Numero MUL_DIV OP_AGR Parentesis_c MUL_DIV OP_AGR|
+   Parentesis_a Numero SUM_RES OP_AGR Parentesis_c MUL_DIV OP_AGR|
+   Parentesis_a Numero SUM_RES OP_AGR Parentesis_c|Parentesis_a Numero MUL_DIV OP_AGR Parentesis_c 
+    
+;
+MUL_DIV ::=
+    Multiplicacion|Division
+;
+SUM_RES ::=
+    Suma|Resta
+;
+Numero ::=
+    numero|Id|Numero_dec
+;

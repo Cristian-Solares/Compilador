@@ -1,0 +1,11 @@
+.model small
+.stack
+.data
+.data
+t1 dw 0
+t2 dw 0
+INI:
+MOV AX,@data
+MOV DS,AX
+MOV AL,09H
+END INI
